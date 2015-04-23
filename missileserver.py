@@ -7,6 +7,8 @@ written by Chris Evans <cevans@delta-risk.net>
 Mashed up from USB Missile Launcher Python Interface written by Pedram Amini <pamini@tippingpoint.com>
           and  Armageddon USB Missile Launcher by Piotr Maliński (aka riklaunim), http://www.rk.edu.pl
 
+Thanks to iquaba and lostbutlearning for contributions to the password feature
+
 Installation Instructions:
   Grab the prerequisites:
     - apt-get install python-dev
@@ -30,7 +32,7 @@ import struct
 import time
 from armageddon import Armageddon
 
-PASS = "2492"
+PASS = "5792"
 
 ########################################################################################################################
 if __name__ == "__main__":
@@ -39,8 +41,7 @@ if __name__ == "__main__":
 
         if mode[0] in ["w", "s", "c"]:
             break
-	
-#    m = missile(debug=False)
+
     m = Armageddon(debug=False)
 
     def command_processor(cmd):
@@ -52,24 +53,16 @@ if __name__ == "__main__":
                 pass
 
         if cmd.startswith("l"):
-            #m.send_cmd(m.LEFT)
-	    #m.send_cmd(m.STOP)
-	    m.send_move(m.LEFT, 100)
+            m.send_move(m.LEFT, 100)
             return True
         elif cmd.startswith("r"):
-            #m.send_cmd(m.RIGHT)
-	    #m.send_cmd(m.STOP)
-	    m.send_move(m.RIGHT, 100)
+            m.send_move(m.RIGHT, 100)
             return True
         elif cmd.startswith("u"):
-            #m.send_cmd(m.UP)
-	    #m.send_cmd(m.STOP)
-	    m.send_move(m.UP, 100)
+            m.send_move(m.UP, 100)
             return True
         elif cmd.startswith("d"):
-            #m.send_cmd(m.DOWN)
-	    #m.send_cmd(m.STOP)
-	    m.send_move(m.DOWN, 100)
+            m.send_move(m.DOWN, 100)
             return True
         elif cmd.startswith("f"):
             m.send_cmd(m.FIRE)
@@ -100,27 +93,19 @@ if __name__ == "__main__":
                 self.do_everything()
 
             def do_everything (self):
-		if "pass="+PASS not in self.path:
-			self.send_error(401, "Incorrect 'pass' paramter")
-			return
+                if "pass="+PASS not in self.path:
+                        self.send_error(401, "Invalid Launch Code (Incorrect 'pass' parameter) - No Launch Code - No Destruction")
+                        return
                 if "up" in self.path:
-                     #m.send_cmd(self, m.UP, 100)
-             	     #m.send_cmd(m.STOP)
-		     m.send_move(m.UP, 100)
+                     m.send_move(m.UP, 100)
                 if "down" in self.path:
-                     #m.send_cmd(self, m.DOWN, 100)
-	             #m.send_cmd(m.STOP)
-		     m.send_move(m.DOWN, 100)
+                     m.send_move(m.DOWN, 100)
                 if "left" in self.path:
-		     #m.send_cmd(self, m.LEFT, 100)
-	             #m.send_cmd(m.STOP)
-		     m.send_move(m.LEFT, 100)
+                     m.send_move(m.LEFT, 100)
                 if "right" in self.path:
-		     #m.send_cmd(self, m.RIGHT, 100)
-	             #m.send_cmd(m.STOP)
-		     m.send_move(m.RIGHT, 100)
+                     m.send_move(m.RIGHT, 100)
                 if "fire" in self.path:
-		     m.send_cmd(m.FIRE)
+                     m.send_cmd(m.FIRE)
 
                 self.send_response(200)
                 self.send_header('Content-type', 'text/html')
@@ -145,7 +130,7 @@ if __name__ == "__main__":
         class web_interface_thread (threading.Thread):
             def __init__ (self, m):
                 threading.Thread.__init__(self)
-		self.m = m
+                self.m = m
                 self.server  = None
 
             def run (self):

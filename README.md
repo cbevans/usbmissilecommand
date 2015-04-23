@@ -6,6 +6,8 @@ Mashed up by Chris Evans (aka cbevans)
 Mashed up from USB Missile Launcher Python Interface written by Pedram Amini <pamini@tippingpoint.com>
           and  Armageddon USB Missile Launcher by Piotr Maliński (aka riklaunim), http://www.rk.edu.pl
 
+Thanks to iquaba and lostbutlearning for their contributions to the password function!
+
 Takes the best of riklaunim's armageddon class and merges it with the USB missile laucnher
 interface by Pedram Amini.  I wanted to use the web server, command line interface and 
 socket features from Pedram's code, remove the dependency on the Windows usbhid.dll, and 
