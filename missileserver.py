@@ -93,8 +93,20 @@ if __name__ == "__main__":
                 self.do_everything()
 
             def do_everything (self):
+                if self.path.endswith('/'):
+                       self.send_response(200)
+                       self.send_header('Content-type', 'text/html')
+                       self.end_headers()
+                       response = """
+                       <title>Missile Command Center</title>
+                       <h1>Missile Command Center</h1>
+                       Enter your 4 digit launch code to get the nuking started<br>
+                       """.format("&pass="+PASS)
+                       self.wfile.write(response)
+                       return
+
                 if "pass="+PASS not in self.path:
-                        self.send_error(401, "Invalid Launch Code (Incorrect 'pass' parameter) - No Launch Code - No Destruction")
+                        self.send_error(401, "Invalid Launch Code (Incorrect 'pass' parameter) - No 4 Digit Launch Code - No Destruction")
                         return
                 if "up" in self.path:
                      m.send_move(m.UP, 100)
