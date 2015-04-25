@@ -132,7 +132,7 @@ if __name__ == "__main__":
                 </table>
                 """.format("&pass="+PASS)
 
-                self.wfile.write(response)
+                self.wfile.write(response+"Test")
 
         class web_interface_server (BaseHTTPServer.HTTPServer):
             def __init__(self, server_address, RequestHandlerClass, m):

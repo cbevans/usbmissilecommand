@@ -24,7 +24,8 @@ class Armageddon(object):
         self.debug = debug
         self._get_device()
         self._detach_hid()
-        self.DEVICE.set_configuration()
+        if self.debug==False:
+	   self.DEVICE.set_configuration()
 
     def _get_device(self):
         if self.debug:  
